@@ -1,8 +1,9 @@
 class RolesController < ApplicationController
-    before_action :set_role, only: [:show, :edit, :update, :destroy]
+    before_action :set_role, only: [:show, :update, :destroy]
   
     def index
       @roles = Role.all
+      render json: {roles: @roles}
     end
   
     def new
@@ -12,9 +13,9 @@ class RolesController < ApplicationController
     def create
       @role = Role.new(role_params)
       if @role.save
-        redirect_to roles_path, notice: 'Role created successfully.'
+        render json:{status: 'Role created successfully.' }
       else
-        render :new
+        render json:{status: 'Role not created.' }
       end
     end
   
@@ -24,15 +25,15 @@ class RolesController < ApplicationController
  
     def update
       if @role.update(role_params)
-        redirect_to role_path(@role), notice: 'Role updated successfully.'
+        render json:{status: 'Role updated successfully.'}
       else
-        render :edit
+        render json:{status: 'Role not updated .'}
       end
     end
   
     def destroy
       @role.destroy
-      redirect_to roles_path, notice: 'Role deleted successfully.'
+      render json: {status: 'Role deleted successfully.'}
     end
   
     private

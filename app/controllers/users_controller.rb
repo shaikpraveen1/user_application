@@ -5,6 +5,9 @@ class UsersController < ApplicationController
 	def index
       @users = User.all.paginate(page: params[:page], per_page: 15)
       @roles = Role.all
+			if params[:role_id].present?
+				@users = @users.where(role_id: params[:role_id])
+			end
 			render json:@users.sort
 	end
 
@@ -29,12 +32,15 @@ class UsersController < ApplicationController
 	end
 
 	def update
-		user=@user.update(user_params)
-		render json: user
-  end
+		if @user.update(user_params)
+			render json: user
+		else
+			render json: {error: "not updated"}
+		end
+	end
 
 	def show
-		render json: {user: @user}
+		render json:{user: @user}
 	end
 
   def destroy

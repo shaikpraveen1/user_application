@@ -4,6 +4,8 @@ ruby "3.0.2"
 gem 'pry'
 gem 'will_paginate'
 gem 'csv'
+gem 'carrierwave'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.2"
 
